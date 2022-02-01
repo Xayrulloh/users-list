@@ -165,7 +165,7 @@ function getmon(num) {
 
 function writeToLocalStorage() {
   window.localStorage.setItem('users', JSON.stringify(users))
-  window.location.href = './UsersList.html'
+  window.location.href = './index.html'
 }
 
 
