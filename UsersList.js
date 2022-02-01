@@ -23,7 +23,7 @@ saveButton.onclick = (e) => {
         users = JSON.parse(window.localStorage.getItem('users')) || []
         usersList.innerHTML = null
         readData()
-        window.location.href = './UsersList.html'
+        window.location.href = './index.html'
       }
     
 
