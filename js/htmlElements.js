@@ -26,4 +26,3 @@ const buttonsEl = ({ page }) => {
 	`
 }
 
-console.log('what');

@@ -39,27 +39,18 @@ class UserSystem {
 		}
 	}
 
-	selectUser (element, parentElement) {
+	selectUser (element) {
 		const users = this.users
 		if(element) {
 			const userId = element.parentNode.parentNode.parentNode.dataset.userid
 			const user = users.find(user => user.userId == userId)
 			user.selected = element.checked
 		}
-
-		if(parentElement) {
-			for(let user of users) {
-				user.selected = parentElement.checked
-
-				let htmlEl = document.querySelector('#item-' + user.userId)
-				if(htmlEl) htmlEl.checked = parentElement.checked
-			}
-		}
 		this.save(users)
-		this.selectedUsers()
+		this.selectedUsersCount()
 	}
 
-	toggleUser (element, parentElement) {
+	toggleUser (element) {
 		const userId = element.parentNode.parentNode.dataset.userid
 		const users = this.users
 		const user = users.find(user => user.userId == userId)
@@ -107,7 +98,7 @@ class UserSystem {
 		element.parentNode.parentNode.parentNode.parentNode.remove()
 	}
 
-	selectedUsers () {
+	selectedUsersCount () {
 		let count = 0
 		for (let user of this.users) {
 			if (user.selected) ++count
@@ -167,7 +158,7 @@ class UserSystem {
 		}
 	} 
 
-	selectingUsers () {
+	searchSelectedUsers () {
 		this.tableBody.innerHTML = null
 		for (let user of this.users) {
 			if (user.selected) {
@@ -210,6 +201,7 @@ class UserSystem {
 			this.tableBody.innerHTML += this.html.usersEl(user)
 		}
 		this.save(users)
+		this.selectedUsersCount()
 	}
 
 	searchUsers (name) {
@@ -226,8 +218,7 @@ userSystem.renderUsers({})
 userSystem.paginationButtons()
 userSystem.allUsers()
 userSystem.activeUsers()
-userSystem.selectedUsers()
-// status
+userSystem.selectedUsersCount()
 
 // event handlers
 search.onkeyup = () => {
@@ -246,12 +237,12 @@ function anyUsers() {
 	userSystem.status('any')
 }
 
-function selectedUsers () {
-	userSystem.selectingUsers()
+function searchSelectedUsers () {
+	userSystem.searchSelectedUsers()
 }
 
 function selectUser (html) {
-	userSystem.selectedUsers(html)
+	userSystem.selectUser(html)
 }
 
 function toggleUser (html) {
